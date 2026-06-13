@@ -16,6 +16,29 @@ public class Vehiculo {
 	private String cambio;
 	private int numeroMarchas;
 	
+	public Vehiculo(int id, String marca, String modelo, String generacion, int potenciaCV, int parMotorNm, int peso,
+			String traccion, double aceleracion, int velocidadMaxima, double coeficienteAerodinamico, String cambio,
+			int numeroMarchas) {
+		super();
+		this.id = id;
+		this.marca = marca;
+		this.modelo = modelo;
+		this.generacion = generacion;
+		this.potenciaCV = potenciaCV;
+		this.parMotorNm = parMotorNm;
+		this.peso = peso;
+		this.traccion = traccion;
+		this.aceleracion = aceleracion;
+		this.velocidadMaxima = velocidadMaxima;
+		this.coeficienteAerodinamico = coeficienteAerodinamico;
+		this.cambio = cambio;
+		this.numeroMarchas = numeroMarchas;
+	}
+	
+	public Vehiculo() {
+		super();
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -94,4 +117,16 @@ public class Vehiculo {
 	public void setNumeroMarchas(int numeroMarchas) {
 		this.numeroMarchas = numeroMarchas;
 	}
+
+	@Override
+	public String toString() {
+		return "Vehiculo [id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", generacion=" + generacion
+				+ ", potenciaCV=" + potenciaCV + ", parMotorNm=" + parMotorNm + ", peso=" + peso + ", traccion="
+				+ traccion + ", aceleracion=" + aceleracion + ", velocidadMaxima=" + velocidadMaxima
+				+ ", coeficienteAerodinamico=" + coeficienteAerodinamico + ", cambio=" + cambio + ", numeroMarchas="
+				+ numeroMarchas + "]";
+	}
+
+	
+	
 }
