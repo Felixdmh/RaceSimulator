@@ -1,30 +1,40 @@
 package Modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Vehiculo {
 
 	private int id;
 	private String marca;
 	private String modelo;
 	private String generacion;
-	private int potenciaCV;
-	private int parMotorNm;
-	private int peso;
+	@JsonProperty("potencia_cv")
+	private int potenciaCv;
+	@JsonProperty("par_motor_nm")
+	private Integer parMotorNm;
+	@JsonProperty("peso_kg")
+	private Integer peso;
 	private String traccion;
-	private double aceleracion;
+	@JsonProperty("aceleracion_0_100")
+	private Double aceleracion;
+	@JsonProperty("velocidad_max_kmh")
 	private int velocidadMaxima;
-	private double coeficienteAerodinamico;
+	@JsonProperty("coeficiente_aerodinamico_cd")
+	private Double coeficienteAerodinamico;
+	@JsonProperty("caja_cambios")
 	private String cambio;
-	private int numeroMarchas;
-	
-	public Vehiculo(int id, String marca, String modelo, String generacion, int potenciaCV, int parMotorNm, int peso,
-			String traccion, double aceleracion, int velocidadMaxima, double coeficienteAerodinamico, String cambio,
-			int numeroMarchas) {
+	@JsonProperty("numero_marchas")
+	private Integer numeroMarchas;
+
+	public Vehiculo(int id, String marca, String modelo, String generacion, int potenciaCv, Integer parMotorNm,
+			Integer peso, String traccion, Double aceleracion, int velocidadMaxima, Double coeficienteAerodinamico,
+			String cambio, Integer numeroMarchas) {
 		super();
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.generacion = generacion;
-		this.potenciaCV = potenciaCV;
+		this.potenciaCv = potenciaCv;
 		this.parMotorNm = parMotorNm;
 		this.peso = peso;
 		this.traccion = traccion;
@@ -34,7 +44,7 @@ public class Vehiculo {
 		this.cambio = cambio;
 		this.numeroMarchas = numeroMarchas;
 	}
-	
+
 	public Vehiculo() {
 		super();
 	}
@@ -64,21 +74,21 @@ public class Vehiculo {
 		this.generacion = generacion;
 	}
 	public int getPotenciaCV() {
-		return potenciaCV;
+		return potenciaCv;
 	}
-	public void setPotenciaCV(int potenciaCV) {
-		this.potenciaCV = potenciaCV;
+	public void setPotenciaCV(int potenciaCv) {
+		this.potenciaCv = potenciaCv;
 	}
-	public int getParMotorNm() {
+	public Integer getParMotorNm() {
 		return parMotorNm;
 	}
-	public void setParMotorNm(int parMotorNm) {
+	public void setParMotorNm(Integer parMotorNm) {
 		this.parMotorNm = parMotorNm;
 	}
-	public int getPeso() {
+	public Integer getPeso() {
 		return peso;
 	}
-	public void setPeso(int peso) {
+	public void setPeso(Integer peso) {
 		this.peso = peso;
 	}
 	public String getTraccion() {
@@ -87,10 +97,10 @@ public class Vehiculo {
 	public void setTraccion(String traccion) {
 		this.traccion = traccion;
 	}
-	public double getAceleracion() {
+	public Double getAceleracion() {
 		return aceleracion;
 	}
-	public void setAceleracion(double aceleracion) {
+	public void setAceleracion(Double aceleracion) {
 		this.aceleracion = aceleracion;
 	}
 	public int getVelocidadMaxima() {
@@ -99,10 +109,10 @@ public class Vehiculo {
 	public void setVelocidadMaxima(int velocidadMaxima) {
 		this.velocidadMaxima = velocidadMaxima;
 	}
-	public double getCoeficienteAerodinamico() {
+	public Double getCoeficienteAerodinamico() {
 		return coeficienteAerodinamico;
 	}
-	public void setCoeficienteAerodinamico(double coeficienteAerodinamico) {
+	public void setCoeficienteAerodinamico(Double coeficienteAerodinamico) {
 		this.coeficienteAerodinamico = coeficienteAerodinamico;
 	}
 	public String getCambio() {
@@ -111,22 +121,22 @@ public class Vehiculo {
 	public void setCambio(String cambio) {
 		this.cambio = cambio;
 	}
-	public int getNumeroMarchas() {
+	public Integer getNumeroMarchas() {
 		return numeroMarchas;
 	}
-	public void setNumeroMarchas(int numeroMarchas) {
+	public void setNumeroMarchas(Integer numeroMarchas) {
 		this.numeroMarchas = numeroMarchas;
 	}
 
 	@Override
 	public String toString() {
 		return "Vehiculo [id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", generacion=" + generacion
-				+ ", potenciaCV=" + potenciaCV + ", parMotorNm=" + parMotorNm + ", peso=" + peso + ", traccion="
+				+ ", potenciaCv=" + potenciaCv + ", parMotorNm=" + parMotorNm + ", peso=" + peso + ", traccion="
 				+ traccion + ", aceleracion=" + aceleracion + ", velocidadMaxima=" + velocidadMaxima
 				+ ", coeficienteAerodinamico=" + coeficienteAerodinamico + ", cambio=" + cambio + ", numeroMarchas="
 				+ numeroMarchas + "]";
 	}
 
-	
+
 	
 }
