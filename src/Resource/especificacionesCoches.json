@@ -1,5 +1,4 @@
-{
-  "vehiculos": [
+[
     {
       "id": 1,
       "marca": "BMW",
@@ -315,5 +314,4 @@
       "caja_cambios": "Automatica",
       "numero_marchas": 7
     }
-  ]
-}
+]
