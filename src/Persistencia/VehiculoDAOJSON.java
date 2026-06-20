@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Modelo.Vehiculo;
 
-public class VeihculoDAOJSON {
+public class VehiculoDAOJSON {
 
 	public List<Vehiculo> cargarVehiculosDesdeJSON() throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();

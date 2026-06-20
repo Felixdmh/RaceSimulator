@@ -6,12 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelo.Vehiculo;
+import Negocio.GestorVehiculos;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -34,6 +42,8 @@ public class Main extends JFrame {
 	private JLabel lblImgIzq2;
 	private JLabel lblImgDer2;
 	private JLabel lblImgIzq3;
+	private JLabel lblPotenciaCv, lblPotenciaTxt, lblGeneracion, lblGeneracionTxt, lblParMotor, lblParMotorTxt, lblPeso, lblPesoTxt, lblTraccion, lblTraccionTxt, lblAceleracion, lblAceleracionTxt, lblVelocidadMax, lblVelocidadMaxTxt, lblTransmision, lblTransmisionTxt, lblMarca, lblMarcaTxt, lblModelo, lblModeloTxt;
+	private GestorVehiculos gestorVehiculos;
 	
 	
 
@@ -57,6 +67,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		gestorVehiculos = new GestorVehiculos();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
@@ -219,93 +230,93 @@ public class Main extends JFrame {
 		btnNewButton.setBounds(452, 560, 315, 48);
 		PanelCatalogo.add(btnNewButton);
 		
-		JLabel lblPotenciaCv = new JLabel("POTENCIA CV:");
+		lblPotenciaCv = new JLabel("POTENCIA CV:");
 		lblPotenciaCv.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblPotenciaCv.setBounds(798, 267, 363, 19);
 		PanelCatalogo.add(lblPotenciaCv);
 		
-		JLabel lblPotenciaTxt = new JLabel("");
+		lblPotenciaTxt = new JLabel("");
 		lblPotenciaTxt.setBounds(798, 292, 363, 19);
 		PanelCatalogo.add(lblPotenciaTxt);
 		
-		JLabel lblGeneracion = new JLabel("GENERACIÓN:");
+		lblGeneracion = new JLabel("GENERACIÓN:");
 		lblGeneracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblGeneracion.setBounds(798, 212, 363, 19);
 		PanelCatalogo.add(lblGeneracion);
 		
-		JLabel lblGeneracionTxt = new JLabel("");
+		lblGeneracionTxt = new JLabel("");
 		lblGeneracionTxt.setBounds(798, 237, 363, 19);
 		PanelCatalogo.add(lblGeneracionTxt);
 		
-		JLabel lblParMotor = new JLabel("PAR MOTOR (NM):");
+		lblParMotor = new JLabel("PAR MOTOR (NM):");
 		lblParMotor.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblParMotor.setBounds(798, 322, 363, 19);
 		PanelCatalogo.add(lblParMotor);
 		
-		JLabel lblParMotorTxt = new JLabel("");
+		lblParMotorTxt = new JLabel("");
 		lblParMotorTxt.setBounds(798, 347, 363, 19);
 		PanelCatalogo.add(lblParMotorTxt);
 		
-		JLabel lblPeso = new JLabel("PESO (KG):");
+		lblPeso = new JLabel("PESO (KG):");
 		lblPeso.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblPeso.setBounds(798, 377, 363, 19);
 		PanelCatalogo.add(lblPeso);
 		
-		JLabel lblPesoTxt = new JLabel("");
+		lblPesoTxt = new JLabel("");
 		lblPesoTxt.setBounds(798, 402, 363, 19);
 		PanelCatalogo.add(lblPesoTxt);
 		
-		JLabel lblTraccion = new JLabel("TRACCIÓN:");
+		lblTraccion = new JLabel("TRACCIÓN:");
 		lblTraccion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblTraccion.setBounds(798, 432, 363, 19);
 		PanelCatalogo.add(lblTraccion);
 		
-		JLabel lblTraccionTxt = new JLabel("");
+		lblTraccionTxt = new JLabel("");
 		lblTraccionTxt.setBounds(798, 457, 363, 19);
 		PanelCatalogo.add(lblTraccionTxt);
 		
-		JLabel lblAceleracion = new JLabel("ACELERACION 0-100:");
+		lblAceleracion = new JLabel("ACELERACION 0-100:");
 		lblAceleracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblAceleracion.setBounds(798, 487, 363, 19);
 		PanelCatalogo.add(lblAceleracion);
 		
-		JLabel lblAceleracionTxt = new JLabel("");
+		lblAceleracionTxt = new JLabel("");
 		lblAceleracionTxt.setBounds(798, 512, 363, 19);
 		PanelCatalogo.add(lblAceleracionTxt);
 		
-		JLabel lblVelocidadMax = new JLabel("VELOCIDAD MAXIMA (KM/H):");
+		lblVelocidadMax = new JLabel("VELOCIDAD MAXIMA (KM/H):");
 		lblVelocidadMax.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblVelocidadMax.setBounds(798, 542, 363, 19);
 		PanelCatalogo.add(lblVelocidadMax);
 		
-		JLabel lblVelocidadMaxTxt = new JLabel("");
+		lblVelocidadMaxTxt = new JLabel("");
 		lblVelocidadMaxTxt.setBounds(798, 567, 363, 19);
 		PanelCatalogo.add(lblVelocidadMaxTxt);
 		
-		JLabel lblTransmision = new JLabel("TRANSMISIÓN:");
+		lblTransmision = new JLabel("TRANSMISIÓN:");
 		lblTransmision.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblTransmision.setBounds(798, 597, 363, 19);
 		PanelCatalogo.add(lblTransmision);
 		
-		JLabel lblTransmisionTxt = new JLabel("");
+		lblTransmisionTxt = new JLabel("");
 		lblTransmisionTxt.setBounds(798, 622, 363, 19);
 		PanelCatalogo.add(lblTransmisionTxt);
 		
-		JLabel lblMarca = new JLabel("MARCA:");
+		lblMarca = new JLabel("MARCA:");
 		lblMarca.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblMarca.setBounds(425, 211, 62, 22);
 		PanelCatalogo.add(lblMarca);
 		
-		JLabel lblMarcaTxt = new JLabel("");
+		lblMarcaTxt = new JLabel("");
 		lblMarcaTxt.setBounds(497, 212, 291, 19);
 		PanelCatalogo.add(lblMarcaTxt);
 		
-		JLabel lblModelo = new JLabel("MODELO:");
+		lblModelo = new JLabel("MODELO:");
 		lblModelo.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
 		lblModelo.setBounds(425, 242, 363, 19);
 		PanelCatalogo.add(lblModelo);
 		
-		JLabel lblModeloTxt = new JLabel("");
+		lblModeloTxt = new JLabel("");
 		lblModeloTxt.setBounds(425, 267, 363, 19);
 		PanelCatalogo.add(lblModeloTxt);
 		
@@ -395,5 +406,28 @@ public class Main extends JFrame {
 		lblFondoMenu = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
 		lblFondoMenu.setBounds(0, 176, 1184, 485);
 		PanelMenu.add(lblFondoMenu);
+		cargarVehiculos();
 	}
+	
+	public void cargarVehiculos() {
+		 try {
+
+		        List<Vehiculo> vehiculos =
+		                gestorVehiculos.obtenerVehiculos();
+
+		        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+		        for (Vehiculo vehiculo : vehiculos) {
+
+		            modeloLista.addElement(vehiculo.getMarca() + " " + vehiculo.getModelo());
+
+		        }
+
+		        listCatalogo.setModel(modeloLista);
+
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+	}
+	
 }
