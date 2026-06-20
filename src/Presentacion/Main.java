@@ -6,17 +6,27 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelo.Vehiculo;
+import Negocio.GestorVehiculos;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class Main extends JFrame {
 
@@ -25,6 +35,7 @@ public class Main extends JFrame {
 	private JPanel PanelMenu, PanelCatalogo, PanelSimular;
 	private JLabel lblNombre1, lblNombre2, lblImgIzq, lblImgDer, lblFondoCabecera, lblFondoMenu, lblFondoCabecera_1, lblFondoCatalogo, lblVistaCocheCatalogo, lblCatalogo;
 	private JList listCatalogo;
+	private List<Vehiculo> vehiculos;
 	private JButton btnSalir, btnCatalogo, btnSimular, btnNewButton, btnIniciar, btnSalir2;
 	private JSpinner contadorKms;
 	private JLabel lblDistancia, lblKms, lblCoche1, lblCoche2, lblGanador1, lblGanador2, lblFondoCabecera2, lblFondoSimular;
@@ -34,6 +45,8 @@ public class Main extends JFrame {
 	private JLabel lblImgIzq2;
 	private JLabel lblImgDer2;
 	private JLabel lblImgIzq3;
+	private JLabel lblPotenciaCv, lblPotenciaTxt, lblGeneracion, lblGeneracionTxt, lblParMotor, lblParMotorTxt, lblPeso, lblPesoTxt, lblTraccion, lblTraccionTxt, lblAceleracion, lblAceleracionTxt, lblVelocidadMax, lblVelocidadMaxTxt, lblTransmision, lblTransmisionTxt, lblMarca, lblMarcaTxt, lblModelo, lblModeloTxt;
+	private GestorVehiculos gestorVehiculos;
 	
 	
 
@@ -57,6 +70,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		gestorVehiculos = new GestorVehiculos();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
@@ -66,11 +80,153 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		PanelCatalogo = new JPanel();
-		PanelCatalogo.setVisible(false);
-		
 		PanelSimular = new JPanel();
 		PanelSimular.setVisible(false);
+		
+		PanelCatalogo = new JPanel();
+		PanelCatalogo.setVisible(false);
+		PanelCatalogo.setBounds(0, 0, 1184, 661);
+		contentPane.add(PanelCatalogo);
+		PanelCatalogo.setLayout(null);
+		
+		lblCatalogo = new JLabel("CATÁLOGO");
+		lblCatalogo.setForeground(new Color(255, 0, 0));
+		lblCatalogo.setFont(new Font("Showcard Gothic", Font.PLAIN, 70));
+		lblCatalogo.setBounds(419, 41, 363, 106);
+		PanelCatalogo.add(lblCatalogo);
+		
+		lblVistaCocheCatalogo = new JLabel("");
+		lblVistaCocheCatalogo.setBounds(452, 298, 315, 216);
+		PanelCatalogo.add(lblVistaCocheCatalogo);
+		
+		listCatalogo = new JList();
+		listCatalogo.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+				    mostrarVehiculoSeleccionado();
+				}
+			}
+
+		});
+		listCatalogo.setBounds(25, 209, 384, 424);
+		PanelCatalogo.add(listCatalogo);
+		
+		btnNewButton = new JButton("SALIR");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelCatalogo.setVisible(false);
+				PanelMenu.setVisible(true);
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 35));
+		btnNewButton.setBounds(452, 560, 315, 48);
+		PanelCatalogo.add(btnNewButton);
+		
+		lblPotenciaCv = new JLabel("POTENCIA CV:");
+		lblPotenciaCv.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblPotenciaCv.setBounds(798, 267, 363, 19);
+		PanelCatalogo.add(lblPotenciaCv);
+		
+		lblPotenciaTxt = new JLabel("");
+		lblPotenciaTxt.setBounds(798, 292, 363, 19);
+		PanelCatalogo.add(lblPotenciaTxt);
+		
+		lblGeneracion = new JLabel("GENERACIÓN:");
+		lblGeneracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblGeneracion.setBounds(798, 212, 363, 19);
+		PanelCatalogo.add(lblGeneracion);
+		
+		lblGeneracionTxt = new JLabel("");
+		lblGeneracionTxt.setBounds(798, 237, 363, 19);
+		PanelCatalogo.add(lblGeneracionTxt);
+		
+		lblParMotor = new JLabel("PAR MOTOR (NM):");
+		lblParMotor.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblParMotor.setBounds(798, 322, 363, 19);
+		PanelCatalogo.add(lblParMotor);
+		
+		lblParMotorTxt = new JLabel("");
+		lblParMotorTxt.setBounds(798, 347, 363, 19);
+		PanelCatalogo.add(lblParMotorTxt);
+		
+		lblPeso = new JLabel("PESO (KG):");
+		lblPeso.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblPeso.setBounds(798, 377, 363, 19);
+		PanelCatalogo.add(lblPeso);
+		
+		lblPesoTxt = new JLabel("");
+		lblPesoTxt.setBounds(798, 402, 363, 19);
+		PanelCatalogo.add(lblPesoTxt);
+		
+		lblTraccion = new JLabel("TRACCIÓN:");
+		lblTraccion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblTraccion.setBounds(798, 432, 363, 19);
+		PanelCatalogo.add(lblTraccion);
+		
+		lblTraccionTxt = new JLabel("");
+		lblTraccionTxt.setBounds(798, 457, 363, 19);
+		PanelCatalogo.add(lblTraccionTxt);
+		
+		lblAceleracion = new JLabel("ACELERACION 0-100:");
+		lblAceleracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblAceleracion.setBounds(798, 487, 363, 19);
+		PanelCatalogo.add(lblAceleracion);
+		
+		lblAceleracionTxt = new JLabel("");
+		lblAceleracionTxt.setBounds(798, 512, 363, 19);
+		PanelCatalogo.add(lblAceleracionTxt);
+		
+		lblVelocidadMax = new JLabel("VELOCIDAD MAXIMA (KM/H):");
+		lblVelocidadMax.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblVelocidadMax.setBounds(798, 542, 363, 19);
+		PanelCatalogo.add(lblVelocidadMax);
+		
+		lblVelocidadMaxTxt = new JLabel("");
+		lblVelocidadMaxTxt.setBounds(798, 567, 363, 19);
+		PanelCatalogo.add(lblVelocidadMaxTxt);
+		
+		lblTransmision = new JLabel("TRANSMISIÓN:");
+		lblTransmision.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblTransmision.setBounds(798, 597, 363, 19);
+		PanelCatalogo.add(lblTransmision);
+		
+		lblTransmisionTxt = new JLabel("");
+		lblTransmisionTxt.setBounds(798, 622, 363, 19);
+		PanelCatalogo.add(lblTransmisionTxt);
+		
+		lblMarca = new JLabel("MARCA:");
+		lblMarca.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblMarca.setBounds(425, 211, 62, 22);
+		PanelCatalogo.add(lblMarca);
+		
+		lblMarcaTxt = new JLabel("");
+		lblMarcaTxt.setBounds(497, 212, 291, 19);
+		PanelCatalogo.add(lblMarcaTxt);
+		
+		lblModelo = new JLabel("MODELO:");
+		lblModelo.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
+		lblModelo.setBounds(425, 242, 363, 19);
+		PanelCatalogo.add(lblModelo);
+		
+		lblModeloTxt = new JLabel("");
+		lblModeloTxt.setBounds(425, 267, 363, 19);
+		PanelCatalogo.add(lblModeloTxt);
+		
+		lblImgIzq2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoCatalogo2.png"));
+		lblImgIzq2.setBounds(0, 0, 232, 176);
+		PanelCatalogo.add(lblImgIzq2);
+		
+		lblImgDer2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoCatalogo1.png"));
+		lblImgDer2.setBounds(952, 0, 232, 176);
+		PanelCatalogo.add(lblImgDer2);
+		
+		lblFondoCatalogo = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
+		lblFondoCatalogo.setBounds(0, 176, 1184, 485);
+		PanelCatalogo.add(lblFondoCatalogo);
+		
+		lblFondoCabecera_1 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
+		lblFondoCabecera_1.setBounds(0, 0, 1184, 176);
+		PanelCatalogo.add(lblFondoCabecera_1);
 		PanelSimular.setBounds(0, 0, 1184, 661);
 		contentPane.add(PanelSimular);
 		PanelSimular.setLayout(null);
@@ -190,140 +346,6 @@ public class Main extends JFrame {
 		lblFondoCabecera2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
 		lblFondoCabecera2.setBounds(0, 0, 1184, 176);
 		PanelSimular.add(lblFondoCabecera2);
-		PanelCatalogo.setBounds(0, 0, 1184, 661);
-		contentPane.add(PanelCatalogo);
-		PanelCatalogo.setLayout(null);
-		
-		lblCatalogo = new JLabel("CATÁLOGO");
-		lblCatalogo.setForeground(new Color(255, 0, 0));
-		lblCatalogo.setFont(new Font("Showcard Gothic", Font.PLAIN, 70));
-		lblCatalogo.setBounds(419, 41, 363, 106);
-		PanelCatalogo.add(lblCatalogo);
-		
-		lblVistaCocheCatalogo = new JLabel("");
-		lblVistaCocheCatalogo.setBounds(452, 298, 315, 216);
-		PanelCatalogo.add(lblVistaCocheCatalogo);
-		
-		listCatalogo = new JList();
-		listCatalogo.setBounds(25, 209, 384, 424);
-		PanelCatalogo.add(listCatalogo);
-		
-		btnNewButton = new JButton("SALIR");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PanelCatalogo.setVisible(false);
-				PanelMenu.setVisible(true);
-			}
-		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 35));
-		btnNewButton.setBounds(452, 560, 315, 48);
-		PanelCatalogo.add(btnNewButton);
-		
-		JLabel lblPotenciaCv = new JLabel("POTENCIA CV:");
-		lblPotenciaCv.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblPotenciaCv.setBounds(798, 267, 363, 19);
-		PanelCatalogo.add(lblPotenciaCv);
-		
-		JLabel lblPotenciaTxt = new JLabel("");
-		lblPotenciaTxt.setBounds(798, 292, 363, 19);
-		PanelCatalogo.add(lblPotenciaTxt);
-		
-		JLabel lblGeneracion = new JLabel("GENERACIÓN:");
-		lblGeneracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblGeneracion.setBounds(798, 212, 363, 19);
-		PanelCatalogo.add(lblGeneracion);
-		
-		JLabel lblGeneracionTxt = new JLabel("");
-		lblGeneracionTxt.setBounds(798, 237, 363, 19);
-		PanelCatalogo.add(lblGeneracionTxt);
-		
-		JLabel lblParMotor = new JLabel("PAR MOTOR (NM):");
-		lblParMotor.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblParMotor.setBounds(798, 322, 363, 19);
-		PanelCatalogo.add(lblParMotor);
-		
-		JLabel lblParMotorTxt = new JLabel("");
-		lblParMotorTxt.setBounds(798, 347, 363, 19);
-		PanelCatalogo.add(lblParMotorTxt);
-		
-		JLabel lblPeso = new JLabel("PESO (KG):");
-		lblPeso.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblPeso.setBounds(798, 377, 363, 19);
-		PanelCatalogo.add(lblPeso);
-		
-		JLabel lblPesoTxt = new JLabel("");
-		lblPesoTxt.setBounds(798, 402, 363, 19);
-		PanelCatalogo.add(lblPesoTxt);
-		
-		JLabel lblTraccion = new JLabel("TRACCIÓN:");
-		lblTraccion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblTraccion.setBounds(798, 432, 363, 19);
-		PanelCatalogo.add(lblTraccion);
-		
-		JLabel lblTraccionTxt = new JLabel("");
-		lblTraccionTxt.setBounds(798, 457, 363, 19);
-		PanelCatalogo.add(lblTraccionTxt);
-		
-		JLabel lblAceleracion = new JLabel("ACELERACION 0-100:");
-		lblAceleracion.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblAceleracion.setBounds(798, 487, 363, 19);
-		PanelCatalogo.add(lblAceleracion);
-		
-		JLabel lblAceleracionTxt = new JLabel("");
-		lblAceleracionTxt.setBounds(798, 512, 363, 19);
-		PanelCatalogo.add(lblAceleracionTxt);
-		
-		JLabel lblVelocidadMax = new JLabel("VELOCIDAD MAXIMA (KM/H):");
-		lblVelocidadMax.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblVelocidadMax.setBounds(798, 542, 363, 19);
-		PanelCatalogo.add(lblVelocidadMax);
-		
-		JLabel lblVelocidadMaxTxt = new JLabel("");
-		lblVelocidadMaxTxt.setBounds(798, 567, 363, 19);
-		PanelCatalogo.add(lblVelocidadMaxTxt);
-		
-		JLabel lblTransmision = new JLabel("TRANSMISIÓN:");
-		lblTransmision.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblTransmision.setBounds(798, 597, 363, 19);
-		PanelCatalogo.add(lblTransmision);
-		
-		JLabel lblTransmisionTxt = new JLabel("");
-		lblTransmisionTxt.setBounds(798, 622, 363, 19);
-		PanelCatalogo.add(lblTransmisionTxt);
-		
-		JLabel lblMarca = new JLabel("MARCA:");
-		lblMarca.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblMarca.setBounds(425, 211, 62, 22);
-		PanelCatalogo.add(lblMarca);
-		
-		JLabel lblMarcaTxt = new JLabel("");
-		lblMarcaTxt.setBounds(497, 212, 291, 19);
-		PanelCatalogo.add(lblMarcaTxt);
-		
-		JLabel lblModelo = new JLabel("MODELO:");
-		lblModelo.setFont(new Font("Showcard Gothic", Font.ITALIC, 15));
-		lblModelo.setBounds(425, 242, 363, 19);
-		PanelCatalogo.add(lblModelo);
-		
-		JLabel lblModeloTxt = new JLabel("");
-		lblModeloTxt.setBounds(425, 267, 363, 19);
-		PanelCatalogo.add(lblModeloTxt);
-		
-		lblImgIzq2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoCatalogo2.png"));
-		lblImgIzq2.setBounds(0, 0, 232, 176);
-		PanelCatalogo.add(lblImgIzq2);
-		
-		lblImgDer2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoCatalogo1.png"));
-		lblImgDer2.setBounds(952, 0, 232, 176);
-		PanelCatalogo.add(lblImgDer2);
-		
-		lblFondoCatalogo = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
-		lblFondoCatalogo.setBounds(0, 176, 1184, 485);
-		PanelCatalogo.add(lblFondoCatalogo);
-		
-		lblFondoCabecera_1 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
-		lblFondoCabecera_1.setBounds(0, 0, 1184, 176);
-		PanelCatalogo.add(lblFondoCabecera_1);
 		
 		PanelMenu = new JPanel();
 		PanelMenu.setBounds(0, 0, 1184, 661);
@@ -395,5 +417,50 @@ public class Main extends JFrame {
 		lblFondoMenu = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
 		lblFondoMenu.setBounds(0, 176, 1184, 485);
 		PanelMenu.add(lblFondoMenu);
+		cargarVehiculos();
 	}
+	
+	public void cargarVehiculos() {
+		 try {
+
+		        vehiculos = gestorVehiculos.obtenerVehiculos();
+
+		        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+		        for (Vehiculo vehiculo : vehiculos) {
+
+		            modeloLista.addElement(vehiculo.getMarca() + " " + vehiculo.getModelo());
+
+		        }
+
+		        listCatalogo.setModel(modeloLista);
+
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+	}
+	
+	public void mostrarVehiculoSeleccionado() {
+		int indice = listCatalogo.getSelectedIndex();
+
+	    if (indice == -1) {
+	        return;
+	    }
+
+	    Vehiculo vehiculo = vehiculos.get(indice);
+
+	    lblMarcaTxt.setText(vehiculo.getMarca());
+	    lblModeloTxt.setText(vehiculo.getModelo());
+	    lblGeneracionTxt.setText(vehiculo.getGeneracion() != null ? vehiculo.getGeneracion() : "N/D");
+	    lblPotenciaTxt.setText(String.valueOf(vehiculo.getPotenciaCV()));
+	    lblParMotorTxt.setText(vehiculo.getParMotorNm() != null ? vehiculo.getParMotorNm().toString() : "N/D");
+	    lblPesoTxt.setText(vehiculo.getPeso() != null ? vehiculo.getPeso().toString() : "N/D");
+	    lblTraccionTxt.setText(vehiculo.getTraccion());
+	    lblAceleracionTxt.setText(vehiculo.getAceleracion() != null ? vehiculo.getAceleracion().toString() : "N/D");
+	    lblVelocidadMaxTxt.setText(String.valueOf(vehiculo.getVelocidadMaxima()));
+	    lblTransmisionTxt.setText(vehiculo.getCambio() != null ? vehiculo.getCambio() : "N/D");
+
+	    System.out.println(vehiculo.getMarca());
+	}
+	
 }

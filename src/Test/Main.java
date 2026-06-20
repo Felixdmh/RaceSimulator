@@ -3,7 +3,7 @@ package Test;
 import java.util.List;
 
 import Modelo.Vehiculo;
-import Persistencia.VeihculoDAOJSON;
+import Persistencia.VehiculoDAOJSON;
 
 public class Main {
 
@@ -11,7 +11,7 @@ public class Main {
 
         try {
 
-            VeihculoDAOJSON dao = new VeihculoDAOJSON();
+            VehiculoDAOJSON dao = new VehiculoDAOJSON();
 
             List<Vehiculo> vehiculos =
                     dao.cargarVehiculosDesdeJSON();
