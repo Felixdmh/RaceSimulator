@@ -25,6 +25,8 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class Main extends JFrame {
 
@@ -33,6 +35,7 @@ public class Main extends JFrame {
 	private JPanel PanelMenu, PanelCatalogo, PanelSimular;
 	private JLabel lblNombre1, lblNombre2, lblImgIzq, lblImgDer, lblFondoCabecera, lblFondoMenu, lblFondoCabecera_1, lblFondoCatalogo, lblVistaCocheCatalogo, lblCatalogo;
 	private JList listCatalogo;
+	private List<Vehiculo> vehiculos;
 	private JButton btnSalir, btnCatalogo, btnSimular, btnNewButton, btnIniciar, btnSalir2;
 	private JSpinner contadorKms;
 	private JLabel lblDistancia, lblKms, lblCoche1, lblCoche2, lblGanador1, lblGanador2, lblFondoCabecera2, lblFondoSimular;
@@ -77,130 +80,11 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		PanelCatalogo = new JPanel();
-		PanelCatalogo.setVisible(false);
-		
 		PanelSimular = new JPanel();
 		PanelSimular.setVisible(false);
-		PanelSimular.setBounds(0, 0, 1184, 661);
-		contentPane.add(PanelSimular);
-		PanelSimular.setLayout(null);
 		
-		lblGanador2 = new JLabel("");
-		lblGanador2.setBounds(956, 88, 46, 53);
-		PanelSimular.add(lblGanador2);
-		
-		lblGanador1 = new JLabel("");
-		lblGanador1.setBounds(956, 24, 46, 53);
-		PanelSimular.add(lblGanador1);
-		
-		lblCoche1 = new JLabel("");
-		lblCoche1.setBounds(40, 201, 315, 216);
-		PanelSimular.add(lblCoche1);
-		
-		lblCoche2 = new JLabel("");
-		lblCoche2.setBounds(816, 201, 315, 216);
-		PanelSimular.add(lblCoche2);
-		
-		contadorKms = new JSpinner();
-		contadorKms.setBounds(504, 289, 215, 41);
-		PanelSimular.add(contadorKms);
-		
-		lblDistancia = new JLabel("DISTANCIA");
-		lblDistancia.setForeground(new Color(0, 0, 0));
-		lblDistancia.setFont(new Font("Showcard Gothic", Font.ITALIC, 40));
-		lblDistancia.setBounds(458, 229, 245, 59);
-		PanelSimular.add(lblDistancia);
-		
-		lblKms = new JLabel("KMS:");
-		lblKms.setForeground(new Color(0, 0, 0));
-		lblKms.setFont(new Font("Showcard Gothic", Font.ITALIC, 30));
-		lblKms.setBounds(410, 299, 77, 41);
-		PanelSimular.add(lblKms);
-		
-		btnIniciar = new JButton("INICIAR");
-		btnIniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 40));
-		btnIniciar.setBounds(410, 376, 315, 64);
-		PanelSimular.add(btnIniciar);
-		
-		btnSalir2 = new JButton("SALIR");
-		btnSalir2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
-		btnSalir2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PanelSimular.setVisible(false);
-				PanelMenu.setVisible(true);
-			}
-		});
-		btnSalir2.setBounds(467, 477, 202, 41);
-		PanelSimular.add(btnSalir2);
-		
-		cbCoche1 = new JComboBox();
-		cbCoche1.setBounds(61, 428, 272, 22);
-		PanelSimular.add(cbCoche1);
-		
-		cbCoche2 = new JComboBox();
-		cbCoche2.setBounds(839, 428, 272, 22);
-		PanelSimular.add(cbCoche2);
-		
-		pbCoche1 = new JProgressBar();
-		pbCoche1.setBounds(209, 54, 734, 22);
-		PanelSimular.add(pbCoche1);
-		
-		pbCoche2 = new JProgressBar();
-		pbCoche2.setBounds(209, 119, 734, 22);
-		PanelSimular.add(pbCoche2);
-		
-		lblNombreCarreraC1 = new JLabel("");
-		lblNombreCarreraC1.setBounds(209, 94, 734, 14);
-		PanelSimular.add(lblNombreCarreraC1);
-		
-		lblNombreCarreraC2 = new JLabel("");
-		lblNombreCarreraC2.setBounds(209, 29, 734, 14);
-		PanelSimular.add(lblNombreCarreraC2);
-		
-		lblMarca1 = new JLabel("");
-		lblMarca1.setBounds(61, 477, 272, 22);
-		PanelSimular.add(lblMarca1);
-		
-		lblGeneracion1 = new JLabel("");
-		lblGeneracion1.setBounds(61, 517, 272, 22);
-		PanelSimular.add(lblGeneracion1);
-		
-		lblPotencia1 = new JLabel("");
-		lblPotencia1.setBounds(61, 557, 272, 22);
-		PanelSimular.add(lblPotencia1);
-		
-		lblParNm1 = new JLabel("");
-		lblParNm1.setBounds(61, 590, 272, 22);
-		PanelSimular.add(lblParNm1);
-		
-		lblMarca2 = new JLabel("");
-		lblMarca2.setBounds(786, 477, 272, 22);
-		PanelSimular.add(lblMarca2);
-		
-		lblGeneracion2 = new JLabel("");
-		lblGeneracion2.setBounds(786, 517, 272, 22);
-		PanelSimular.add(lblGeneracion2);
-		
-		lblPotencia2 = new JLabel("");
-		lblPotencia2.setBounds(786, 557, 272, 22);
-		PanelSimular.add(lblPotencia2);
-		
-		lblParNm2 = new JLabel("");
-		lblParNm2.setBounds(786, 590, 272, 22);
-		PanelSimular.add(lblParNm2);
-		
-		lblImgIzq3 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoSimular.png"));
-		lblImgIzq3.setBounds(23, 24, 159, 134);
-		PanelSimular.add(lblImgIzq3);
-		
-		lblFondoSimular = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
-		lblFondoSimular.setBounds(0, 176, 1184, 485);
-		PanelSimular.add(lblFondoSimular);
-		
-		lblFondoCabecera2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
-		lblFondoCabecera2.setBounds(0, 0, 1184, 176);
-		PanelSimular.add(lblFondoCabecera2);
+		PanelCatalogo = new JPanel();
+		PanelCatalogo.setVisible(false);
 		PanelCatalogo.setBounds(0, 0, 1184, 661);
 		contentPane.add(PanelCatalogo);
 		PanelCatalogo.setLayout(null);
@@ -216,6 +100,14 @@ public class Main extends JFrame {
 		PanelCatalogo.add(lblVistaCocheCatalogo);
 		
 		listCatalogo = new JList();
+		listCatalogo.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+				    mostrarVehiculoSeleccionado();
+				}
+			}
+
+		});
 		listCatalogo.setBounds(25, 209, 384, 424);
 		PanelCatalogo.add(listCatalogo);
 		
@@ -335,6 +227,125 @@ public class Main extends JFrame {
 		lblFondoCabecera_1 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
 		lblFondoCabecera_1.setBounds(0, 0, 1184, 176);
 		PanelCatalogo.add(lblFondoCabecera_1);
+		PanelSimular.setBounds(0, 0, 1184, 661);
+		contentPane.add(PanelSimular);
+		PanelSimular.setLayout(null);
+		
+		lblGanador2 = new JLabel("");
+		lblGanador2.setBounds(956, 88, 46, 53);
+		PanelSimular.add(lblGanador2);
+		
+		lblGanador1 = new JLabel("");
+		lblGanador1.setBounds(956, 24, 46, 53);
+		PanelSimular.add(lblGanador1);
+		
+		lblCoche1 = new JLabel("");
+		lblCoche1.setBounds(40, 201, 315, 216);
+		PanelSimular.add(lblCoche1);
+		
+		lblCoche2 = new JLabel("");
+		lblCoche2.setBounds(816, 201, 315, 216);
+		PanelSimular.add(lblCoche2);
+		
+		contadorKms = new JSpinner();
+		contadorKms.setBounds(504, 289, 215, 41);
+		PanelSimular.add(contadorKms);
+		
+		lblDistancia = new JLabel("DISTANCIA");
+		lblDistancia.setForeground(new Color(0, 0, 0));
+		lblDistancia.setFont(new Font("Showcard Gothic", Font.ITALIC, 40));
+		lblDistancia.setBounds(458, 229, 245, 59);
+		PanelSimular.add(lblDistancia);
+		
+		lblKms = new JLabel("KMS:");
+		lblKms.setForeground(new Color(0, 0, 0));
+		lblKms.setFont(new Font("Showcard Gothic", Font.ITALIC, 30));
+		lblKms.setBounds(410, 299, 77, 41);
+		PanelSimular.add(lblKms);
+		
+		btnIniciar = new JButton("INICIAR");
+		btnIniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 40));
+		btnIniciar.setBounds(410, 376, 315, 64);
+		PanelSimular.add(btnIniciar);
+		
+		btnSalir2 = new JButton("SALIR");
+		btnSalir2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
+		btnSalir2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelSimular.setVisible(false);
+				PanelMenu.setVisible(true);
+			}
+		});
+		btnSalir2.setBounds(467, 477, 202, 41);
+		PanelSimular.add(btnSalir2);
+		
+		cbCoche1 = new JComboBox();
+		cbCoche1.setBounds(61, 428, 272, 22);
+		PanelSimular.add(cbCoche1);
+		
+		cbCoche2 = new JComboBox();
+		cbCoche2.setBounds(839, 428, 272, 22);
+		PanelSimular.add(cbCoche2);
+		
+		pbCoche1 = new JProgressBar();
+		pbCoche1.setBounds(209, 54, 734, 22);
+		PanelSimular.add(pbCoche1);
+		
+		pbCoche2 = new JProgressBar();
+		pbCoche2.setBounds(209, 119, 734, 22);
+		PanelSimular.add(pbCoche2);
+		
+		lblNombreCarreraC1 = new JLabel("");
+		lblNombreCarreraC1.setBounds(209, 94, 734, 14);
+		PanelSimular.add(lblNombreCarreraC1);
+		
+		lblNombreCarreraC2 = new JLabel("");
+		lblNombreCarreraC2.setBounds(209, 29, 734, 14);
+		PanelSimular.add(lblNombreCarreraC2);
+		
+		lblMarca1 = new JLabel("");
+		lblMarca1.setBounds(61, 477, 272, 22);
+		PanelSimular.add(lblMarca1);
+		
+		lblGeneracion1 = new JLabel("");
+		lblGeneracion1.setBounds(61, 517, 272, 22);
+		PanelSimular.add(lblGeneracion1);
+		
+		lblPotencia1 = new JLabel("");
+		lblPotencia1.setBounds(61, 557, 272, 22);
+		PanelSimular.add(lblPotencia1);
+		
+		lblParNm1 = new JLabel("");
+		lblParNm1.setBounds(61, 590, 272, 22);
+		PanelSimular.add(lblParNm1);
+		
+		lblMarca2 = new JLabel("");
+		lblMarca2.setBounds(786, 477, 272, 22);
+		PanelSimular.add(lblMarca2);
+		
+		lblGeneracion2 = new JLabel("");
+		lblGeneracion2.setBounds(786, 517, 272, 22);
+		PanelSimular.add(lblGeneracion2);
+		
+		lblPotencia2 = new JLabel("");
+		lblPotencia2.setBounds(786, 557, 272, 22);
+		PanelSimular.add(lblPotencia2);
+		
+		lblParNm2 = new JLabel("");
+		lblParNm2.setBounds(786, 590, 272, 22);
+		PanelSimular.add(lblParNm2);
+		
+		lblImgIzq3 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/LogoSimular.png"));
+		lblImgIzq3.setBounds(23, 24, 159, 134);
+		PanelSimular.add(lblImgIzq3);
+		
+		lblFondoSimular = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoMenu.png"));
+		lblFondoSimular.setBounds(0, 176, 1184, 485);
+		PanelSimular.add(lblFondoSimular);
+		
+		lblFondoCabecera2 = new JLabel(new ImageIcon("src/Resource/ImagenesLogos/FondoCabecera.png"));
+		lblFondoCabecera2.setBounds(0, 0, 1184, 176);
+		PanelSimular.add(lblFondoCabecera2);
 		
 		PanelMenu = new JPanel();
 		PanelMenu.setBounds(0, 0, 1184, 661);
@@ -412,8 +423,7 @@ public class Main extends JFrame {
 	public void cargarVehiculos() {
 		 try {
 
-		        List<Vehiculo> vehiculos =
-		                gestorVehiculos.obtenerVehiculos();
+		        vehiculos = gestorVehiculos.obtenerVehiculos();
 
 		        DefaultListModel<String> modeloLista = new DefaultListModel<>();
 
@@ -428,6 +438,29 @@ public class Main extends JFrame {
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }
+	}
+	
+	public void mostrarVehiculoSeleccionado() {
+		int indice = listCatalogo.getSelectedIndex();
+
+	    if (indice == -1) {
+	        return;
+	    }
+
+	    Vehiculo vehiculo = vehiculos.get(indice);
+
+	    lblMarcaTxt.setText(vehiculo.getMarca());
+	    lblModeloTxt.setText(vehiculo.getModelo());
+	    lblGeneracionTxt.setText(vehiculo.getGeneracion() != null ? vehiculo.getGeneracion() : "N/D");
+	    lblPotenciaTxt.setText(String.valueOf(vehiculo.getPotenciaCV()));
+	    lblParMotorTxt.setText(vehiculo.getParMotorNm() != null ? vehiculo.getParMotorNm().toString() : "N/D");
+	    lblPesoTxt.setText(vehiculo.getPeso() != null ? vehiculo.getPeso().toString() : "N/D");
+	    lblTraccionTxt.setText(vehiculo.getTraccion());
+	    lblAceleracionTxt.setText(vehiculo.getAceleracion() != null ? vehiculo.getAceleracion().toString() : "N/D");
+	    lblVelocidadMaxTxt.setText(String.valueOf(vehiculo.getVelocidadMaxima()));
+	    lblTransmisionTxt.setText(vehiculo.getCambio() != null ? vehiculo.getCambio() : "N/D");
+
+	    System.out.println(vehiculo.getMarca());
 	}
 	
 }
