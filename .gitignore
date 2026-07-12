@@ -1,4 +1,3 @@
-
 /bin/
 
 # Compiled class file
@@ -15,6 +14,8 @@
 
 # Package Files #
 *.jar
+!lib/*.jar
+
 *.war
 *.nar
 *.ear
@@ -22,7 +23,6 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see 
+# virtual machine crash logs
 hs_err_pid*
 replay_pid*
-
