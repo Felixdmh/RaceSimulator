@@ -5,16 +5,19 @@ import Modelo.Vehiculo;
 public class EstadoVehiculo {
 	
 	private Vehiculo vehiculo;
+	// En metros por segundo (m/s)
 	private double velocidadActual;
 	private double distanciaRecorrida;
 	private double tiempo;
+	private double distanciaObjetivo;
 	
-	public EstadoVehiculo(Vehiculo vehiculo, double velocidadActual, double distanciaRecorrida, double tiempo) {
+	public EstadoVehiculo(Vehiculo vehiculo, double velocidadActual, double distanciaRecorrida, double tiempo, double distanciaObjetivo) {
 		super();
 		this.vehiculo = vehiculo;
 		this.velocidadActual = velocidadActual;
 		this.distanciaRecorrida = distanciaRecorrida;
 		this.tiempo = tiempo;
+		this.distanciaObjetivo = distanciaObjetivo; // Inicializamos la distancia objetivo a 0
 	}
 	
 	public EstadoVehiculo() {
@@ -52,12 +55,22 @@ public class EstadoVehiculo {
 	public void setTiempo(double tiempo) {
 		this.tiempo = tiempo;
 	}
+	
+	public double getDistanciaObjetivo() {
+		return distanciaObjetivo;
+	}
+	
+	public void setDistanciaObjetivo(double distanciaObjetivo) {
+		this.distanciaObjetivo = distanciaObjetivo;
+	}
 
 	@Override
 	public String toString() {
 		return "EstadoVehiculo [vehiculo=" + vehiculo + ", velocidadActual=" + velocidadActual + ", distanciaRecorrida="
-				+ distanciaRecorrida + ", tiempo=" + tiempo + "]";
+				+ distanciaRecorrida + ", tiempo=" + tiempo + ", distanciaObjetivo=" + distanciaObjetivo + "]";
 	}
+
+	
 	
 	
 }
