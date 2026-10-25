@@ -17,5 +17,9 @@ public class GestorVehiculos {
 	public List<Vehiculo> obtenerVehiculos() throws IOException {
 		return vehiculoDAOJSON.cargarVehiculosDesdeJSON();
 	}
+	
+	public void guardarVehiculos(List<Vehiculo> vehiculos) throws IOException {
+	    vehiculoDAOJSON.guardarVehiculosEnJSON(vehiculos);
+	}
 
 }

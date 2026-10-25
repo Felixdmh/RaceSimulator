@@ -18,4 +18,14 @@ public class VehiculoDAOJSON {
 		
 		return Arrays.asList(vehiculos);
 	}
+	
+	public void guardarVehiculosEnJSON(List<Vehiculo> vehiculos) throws IOException {
+	    ObjectMapper objectMapper = new ObjectMapper();
+
+	    objectMapper.writerWithDefaultPrettyPrinter()
+	                .writeValue(
+	                    new File("src/Resource/especificacionesCoches.json"),
+	                    vehiculos
+	                );
+	}
 }
