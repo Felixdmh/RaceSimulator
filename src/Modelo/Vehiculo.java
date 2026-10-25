@@ -25,10 +25,11 @@ public class Vehiculo {
 	private String cambio;
 	@JsonProperty("numero_marchas")
 	private Integer numeroMarchas;
+	private String imagen;
 
 	public Vehiculo(int id, String marca, String modelo, String generacion, int potenciaCv, Integer parMotorNm,
 			Integer peso, String traccion, Double aceleracion, int velocidadMaxima, Double coeficienteAerodinamico,
-			String cambio, Integer numeroMarchas) {
+			String cambio, Integer numeroMarchas, String imagen) {
 		super();
 		this.id = id;
 		this.marca = marca;
@@ -43,6 +44,7 @@ public class Vehiculo {
 		this.coeficienteAerodinamico = coeficienteAerodinamico;
 		this.cambio = cambio;
 		this.numeroMarchas = numeroMarchas;
+		this.imagen = imagen;
 	}
 
 	public Vehiculo() {
@@ -127,6 +129,13 @@ public class Vehiculo {
 	public void setNumeroMarchas(Integer numeroMarchas) {
 		this.numeroMarchas = numeroMarchas;
 	}
+	public String getImagen() {
+	    return imagen;
+	}
+
+	public void setImagen(String imagen) {
+	    this.imagen = imagen;
+	}
 
 	@Override
 	public String toString() {
@@ -134,7 +143,7 @@ public class Vehiculo {
 				+ ", potenciaCv=" + potenciaCv + ", parMotorNm=" + parMotorNm + ", peso=" + peso + ", traccion="
 				+ traccion + ", aceleracion=" + aceleracion + ", velocidadMaxima=" + velocidadMaxima
 				+ ", coeficienteAerodinamico=" + coeficienteAerodinamico + ", cambio=" + cambio + ", numeroMarchas="
-				+ numeroMarchas + "]";
+				+ numeroMarchas + ", imagen=" + imagen + "]";
 	}
 
 
